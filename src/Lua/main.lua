@@ -103,7 +103,7 @@ local emeraldslist = {
 
 local function skinCheck(skin)
 	skin = skins[$].name
-	return (skin == "book" or skin == "icecube" or skin == "match" or skin == "bubble")
+	return (skin == "book" or skin == "icecube" or skin == "match")
 end
 
 rawset(_G, "SRB5b_skinCheck", skinCheck)
@@ -202,24 +202,11 @@ addHook("PlayerThink", function(p)
 	end
 end)
 
--- heisting.
--- -pac
-
-local hasLoaded = false
-
-local function doCharDef()
-	if not FangsHeist
-	or hasLoaded then return end
-	
-	FangsHeist.makeCharacter("book", {pregameBackground = "FH_BOOKBG", panicState = S_BOOK_HURRYUP})
-	FangsHeist.makeCharacter("icecube", {pregameBackground = "FH_ICYBG", panicState = S_BOOK_HURRYUP})
-	FangsHeist.makeCharacter("match", {pregameBackground = "FH_MATCHBG", panicState = S_BOOK_HURRYUP})
-	FangsHeist.makeCharacter("bubble", {pregameBackground = "FH_BUBBLEBG", panicState = S_BOOK_HURRYUP})
-	hasLoaded = true
+// poyo
+if not(kirbyabilitytable)
+    rawset(_G, "kirbyabilitytable", {})
 end
-
-doCharDef()
-
-addHook("AddonLoaded", function()
-	doCharDef()
-end)
+kirbyabilitytable[MT_BOOK_METALBOX] = 3 // metal box give stone
+kirbyabilitytable["book"] = 10 //book give sword cuz cutter ability doesnt exist
+kirbyabilitytable["match"] = 1 //match give fire
+kirbyabilitytable["icecube"] = 2 //idk what *ice*cube gives :p
