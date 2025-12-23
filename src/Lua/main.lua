@@ -202,6 +202,28 @@ addHook("PlayerThink", function(p)
 	end
 end)
 
+-- heisting.
+-- -pac
+
+local hasLoaded = false
+
+local function doCharDef()
+	if not FangsHeist
+	or hasLoaded then return end
+	
+	FangsHeist.makeCharacter("book", {pregameBackground = "FH_BOOKBG", panicState = S_BOOK_HURRYUP})
+	FangsHeist.makeCharacter("icecube", {pregameBackground = "FH_ICYBG", panicState = S_BOOK_HURRYUP})
+	FangsHeist.makeCharacter("match", {pregameBackground = "FH_MATCHBG", panicState = S_BOOK_HURRYUP})
+	FangsHeist.makeCharacter("bubble", {pregameBackground = "FH_BUBBLEBG", panicState = S_BOOK_HURRYUP})
+	hasLoaded = true
+end
+
+doCharDef()
+
+addHook("AddonLoaded", function()
+	doCharDef()
+end)
+
 // poyo
 if not(kirbyabilitytable)
     rawset(_G, "kirbyabilitytable", {})
