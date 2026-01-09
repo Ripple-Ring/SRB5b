@@ -49,7 +49,7 @@ jobs:
       - name: get 7z
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
-          packages: 7z
+          packages: 7zip
           version: build
 
       - name: Set current date as env variable # pacola if coyping from https://stackoverflow.com/questions/60942067/get-current-date-and-time-in-github-workflows was a challenge:
