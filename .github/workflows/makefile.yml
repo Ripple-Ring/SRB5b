@@ -43,7 +43,14 @@ jobs:
     if: needs.check.outputs.changed == 'true'
 
     steps:
-      - uses: actions/checkout@v5
+      - name: checkout code
+        uses: actions/checkout@v5
+
+      - name: get 7z
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: 7z
+          version: build
 
       - name: Set current date as env variable # pacola if coyping from https://stackoverflow.com/questions/60942067/get-current-date-and-time-in-github-workflows was a challenge:
         run: echo "NOW=$(date +%Y-%m-%d)" >> $GITHUB_ENV
@@ -51,7 +58,7 @@ jobs:
       - name: do the thing pls
         run: |
           cd src/
-          zip -r ../SRB5b${{ needs.check.outputs.suffix }}-${{ env.NOW }}.pk3 .
+          7z a -tzip -mx=9 ../SRB5b${{ needs.check.outputs.suffix }}-${{ env.NOW }}.pk3 .
 
       - name: send thing to the action tab
         uses: actions/upload-artifact@v4
