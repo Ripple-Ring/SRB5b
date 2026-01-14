@@ -324,9 +324,6 @@ local function IsSpecialStage(mapnum) -- unnecessarily translate G_IsSpecialStag
 end
 
 addHook("HUD", function(v, p)
-	v.drawString(160, 0, "SRB5b Discord Link:", V_SNAPTOTOP|V_30TRANS|V_ALLOWLOWERCASE, "small-center")
-	v.drawString(160, 4, "there isnt one :p", V_SNAPTOTOP|V_30TRANS|V_ALLOWLOWERCASE, "small-center")
-	
 	if not (p.mo and p.mo.valid)
 	or not SRB5b_skinCheck(p.mo.skin) then return end -- gotta make this a function soon -- update: i did it!!
 	
