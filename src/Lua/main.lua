@@ -59,24 +59,6 @@ states[S_BOOK_HURRYUP] = {
 	nextstate = S_BOOK_HURRYUP
 }
 
--- code from spongebob... yay :)
--- except me (pacola) completely changed it :)
--- damn, i suck at codeing (slude) :(
-addHook("PlayerThink", function(p)
-    if not (p.mo and p.mo.valid)
-	or (p.mo.skin ~= "book" and p.mo.skin ~= "match") return end
-	
-	if ((PizzaTime and PizzaTime.PizzaTime) -- checks if you're in ptopp's pizza time
-	or (PTJE and PTJE.pizzatime) -- checks if you're in Jisk Edition/Spice Runners's pizza time
-	or (PizzaTime and PizzaTime.sync and PizzaTime.sync.PizzaTime) -- checks if you're in PTv2's pizza time
-	or (HAPPY_HOUR and HAPPY_HOUR.happyhour)) -- and checks if IT'S HAPPY HOUR
-	and p.panim == PA_IDLE
-	and p.mo.state ~= S_BOOK_HURRYUP
-	and not p.powers[pw_super] then -- and you're not super
-		p.mo.state = S_BOOK_HURRYUP
-	end
-end)
-
 states[S_WINTOKEN] = {
 	sprite = SPR_WNTK,
 	frame = A,
@@ -202,6 +184,23 @@ addHook("PlayerThink", function(p)
 	end
 end)
 
+-- Heisting 2.
+-- Slude
+
+local function isFHPanic()
+    if not FH then return false end
+    if not FH:isMode() then return false end
+
+    local gametype = FH:isMode()
+    if not gametype.isEscape then return false end
+
+    if not FHN.escape then return false end
+    if FHR.escapeTime > FHR.timesUpStart then return false end
+
+    return true
+end
+
+/*
 -- heisting.
 -- -pac
 
@@ -214,7 +213,7 @@ local function doCharDef()
 	FangsHeist.makeCharacter("book", {pregameBackground = "FH_BOOKBG", panicState = S_BOOK_HURRYUP})
 	FangsHeist.makeCharacter("icecube", {pregameBackground = "FH_ICYBG", panicState = S_BOOK_HURRYUP})
 	FangsHeist.makeCharacter("match", {pregameBackground = "FH_MATCHBG", panicState = S_BOOK_HURRYUP})
-	FangsHeist.makeCharacter("bubble", {pregameBackground = "FH_BUBBLEBG", panicState = S_BOOK_HURRYUP})
+	--FangsHeist.makeCharacter("bubble", {pregameBackground = "FH_BUBBLEBG", panicState = S_BOOK_HURRYUP})
 	hasLoaded = true
 end
 
@@ -222,6 +221,26 @@ doCharDef()
 
 addHook("AddonLoaded", function()
 	doCharDef()
+end)
+*/
+
+-- code from spongebob... yay :)
+-- except me (pacola) completely changed it :)
+-- damn, i suck at codeing (slude) :(
+addHook("PlayerThink", function(p)
+    if not (p.mo and p.mo.valid)
+	or (p.mo.skin ~= "book" and p.mo.skin ~= "match") return end
+	
+	if ((PizzaTime and PizzaTime.PizzaTime) -- checks if you're in ptopp's pizza time
+	or (PTJE and PTJE.pizzatime) -- checks if you're in Jisk Edition/Spice Runners's pizza time
+	or (PizzaTime and PizzaTime.sync and PizzaTime.sync.PizzaTime) -- checks if you're in PTv2's pizza time
+	or (HAPPY_HOUR and HAPPY_HOUR.happyhour) -- and checks if IT'S HAPPY HOUR
+	or (isFHPanic and FHR.timesUpStart)) --straight up not working
+	and p.panim == PA_IDLE
+	and p.mo.state ~= S_BOOK_HURRYUP
+	and not p.powers[pw_super] then -- and you're not super
+		p.mo.state = S_BOOK_HURRYUP
+	end
 end)
 
 // poyo
