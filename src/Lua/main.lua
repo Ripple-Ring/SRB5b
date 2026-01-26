@@ -235,7 +235,7 @@ addHook("PlayerThink", function(p)
 	or (PTJE and PTJE.pizzatime) -- checks if you're in Jisk Edition/Spice Runners's pizza time
 	or (PizzaTime and PizzaTime.sync and PizzaTime.sync.PizzaTime) -- checks if you're in PTv2's pizza time
 	or (HAPPY_HOUR and HAPPY_HOUR.happyhour) -- and checks if IT'S HAPPY HOUR
-	or (isFHPanic and FHR.timesUpStart)) --straight up not working
+	or (isFHPanic() and FHR.timesUpStart)) --straight up not working
 	and p.panim == PA_IDLE
 	and p.mo.state ~= S_BOOK_HURRYUP
 	and not p.powers[pw_super] then -- and you're not super
