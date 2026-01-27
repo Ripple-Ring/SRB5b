@@ -200,29 +200,34 @@ local function isFHPanic()
     return true
 end
 
-/*
 -- heisting.
 -- -pac
 
 local hasLoaded = false
 
 local function doCharDef()
-	if not FangsHeist
+	if not FH
 	or hasLoaded then return end
 	
-	FangsHeist.makeCharacter("book", {pregameBackground = "FH_BOOKBG", panicState = S_BOOK_HURRYUP})
-	FangsHeist.makeCharacter("icecube", {pregameBackground = "FH_ICYBG", panicState = S_BOOK_HURRYUP})
-	FangsHeist.makeCharacter("match", {pregameBackground = "FH_MATCHBG", panicState = S_BOOK_HURRYUP})
-	--FangsHeist.makeCharacter("bubble", {pregameBackground = "FH_BUBBLEBG", panicState = S_BOOK_HURRYUP})
+	local state = states[S_FH_COLLECTIBLE]
+	local ogaction = state.action
+
+	-- heist doesn't have a way to properly add a new treasure (as of writing)
+	-- so we gotta improvise a bit -pac
+	---@param mo mobj_t
+	state.action = function(mo)
+		ogaction(mo)
+
+		if not P_RandomRange(1, 50) then -- maybe not the best way to be like, give the same chance for all treasures, but its the one that's future-proof for when a treasure is added, u can't get how many frames a sprite has afaik
+			mo.sprite = SPR_WNTK
+			mo.frame = A
+		end
+	end
 	hasLoaded = true
 end
 
 doCharDef()
-
-addHook("AddonLoaded", function()
-	doCharDef()
-end)
-*/
+addHook("AddonLoaded", doCharDef)
 
 -- code from spongebob... yay :)
 -- except me (pacola) completely changed it :)
