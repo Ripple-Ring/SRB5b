@@ -194,7 +194,7 @@ local function isFHPanic()
     local gametype = FH:isMode()
     if not gametype.isEscape then return false end
 
-    if not FHN.escape then return false end
+    if not FHR.escape then return false end
     if FHR.escapeTime > FHR.timesUpStart then return false end
 
     return true
@@ -218,7 +218,7 @@ local function doCharDef()
 	state.action = function(mo)
 		ogaction(mo)
 
-		if not P_RandomRange(1, 50) then -- maybe not the best way to be like, give the same chance for all treasures, but its the one that's future-proof for when a treasure is added, u can't get how many frames a sprite has afaik
+		if P_RandomRange(1, 50) == 1 then -- maybe not the best way to be like, give the same chance for all treasures, but its the one that's future-proof for when a treasure is added, u can't get how many frames a sprite has afaik
 			mo.sprite = SPR_WNTK
 			mo.frame = A
 		end
@@ -235,12 +235,14 @@ addHook("AddonLoaded", doCharDef)
 addHook("PlayerThink", function(p)
     if not (p.mo and p.mo.valid)
 	or (p.mo.skin ~= "book" and p.mo.skin ~= "match") return end
+
+	print(isFHPanic())
 	
 	if ((PizzaTime and PizzaTime.PizzaTime) -- checks if you're in ptopp's pizza time
 	or (PTJE and PTJE.pizzatime) -- checks if you're in Jisk Edition/Spice Runners's pizza time
 	or (PizzaTime and PizzaTime.sync and PizzaTime.sync.PizzaTime) -- checks if you're in PTv2's pizza time
 	or (HAPPY_HOUR and HAPPY_HOUR.happyhour) -- and checks if IT'S HAPPY HOUR
-	or (isFHPanic() and FHR.timesUpStart)) --straight up not working
+	or isFHPanic())
 	and p.panim == PA_IDLE
 	and p.mo.state ~= S_BOOK_HURRYUP
 	and not p.powers[pw_super] then -- and you're not super
@@ -249,7 +251,7 @@ addHook("PlayerThink", function(p)
 end)
 
 // poyo
-if not(kirbyabilitytable)
+if not (kirbyabilitytable) then
     rawset(_G, "kirbyabilitytable", {})
 end
 kirbyabilitytable[MT_BOOK_METALBOX] = 3 // metal box give stone
