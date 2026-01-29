@@ -235,8 +235,6 @@ addHook("AddonLoaded", doCharDef)
 addHook("PlayerThink", function(p)
     if not (p.mo and p.mo.valid)
 	or (p.mo.skin ~= "book" and p.mo.skin ~= "match") return end
-
-	print(isFHPanic())
 	
 	if ((PizzaTime and PizzaTime.PizzaTime) -- checks if you're in ptopp's pizza time
 	or (PTJE and PTJE.pizzatime) -- checks if you're in Jisk Edition/Spice Runners's pizza time
