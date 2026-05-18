@@ -1,0 +1,3 @@
+charD = character definitions
+Character class = playable character thing, i think. gotta figure out how the physics works and how 2 apply it to SRB2
+

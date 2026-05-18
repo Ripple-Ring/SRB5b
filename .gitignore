@@ -1,6 +1,7 @@
-src/Maps/MAP99.dbs
-src/Maps/MAP99.wad.backup1
-src/Maps/MAP99.wad.backup2
-src/Maps/MAP99.wad.backup3
-src/Maps/MAP99.wad.backup1
-src/Maps/MAP99.dbs
+*.dbs
+*.wad.backup1
+*.wad.backup2
+*.wad.backup3
+*.wad.backup1
+*.dbs
+*.sh
